@@ -111,6 +111,23 @@ public class App {
      */
     public static void gestionarOpcio(int opcio) {
        //TODO:
+       switch (opcio) {
+        case 1: reservarHabitacio();
+            break;
+        case 2: alliberarHabitacio();
+            break;
+        case 3: consultarDisponibilitat();
+            break;
+        case 4: obtindreReservaPerTipus();
+            break;
+        case 5: obtindreReserva();
+            break;
+        case 6: 
+            break;
+        default:
+            System.out.println("Opció no valida. Tria entre 1 i 6.");
+            break;
+       }
     }
 
     /**
@@ -129,7 +146,25 @@ public class App {
      */
     public static String seleccionarTipusHabitacio() {
         //TODO:
-        return null;
+        System.out.println("1. " + TIPUS_ESTANDARD);
+        System.out.println("2. " + TIPUS_SUITE);
+        System.out.println("3. " + TIPUS_DELUXE);
+
+        int opcio = llegirEnter("Tria un tipus (1-3): ");
+
+        switch (opcio) {
+            case 1:
+                return TIPUS_ESTANDARD;
+            case 2: 
+                return TIPUS_SUITE;
+            case 3:
+                return TIPUS_DELUXE;
+
+            default:
+                System.out.println("Opció no valida.");
+
+                return null;        
+        }
     }
 
     /**
@@ -185,6 +220,9 @@ public class App {
      */
     public static void consultarDisponibilitat() {
         // TODO: Mostrar lliures i ocupades
+        mostrarDisponibilitatTipus(TIPUS_ESTANDARD);
+        mostrarDisponibilitatTipus(TIPUS_SUITE);
+        mostrarDisponibilitatTipus(TIPUS_DELUXE);
     }
 
     /**
