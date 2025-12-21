@@ -175,6 +175,16 @@ public class App {
     public static String seleccionarTipusHabitacioDisponible() {
         System.out.println("\nTipus d'habitació disponibles:");
         //TODO:
+
+        mostrarInfoTipus(TIPUS_ESTANDARD);
+        mostrarInfoTipus(TIPUS_SUITE);
+        mostrarInfoTipus(TIPUS_DELUXE);
+
+        String tipus = seleccionarTipusHabitacio();
+        if (disponibilitatHabitacions.get(tipus) > 0) {
+            return tipus;
+        }
+
         return null;
     }
 
@@ -194,7 +204,12 @@ public class App {
      */
     public static float calcularPreuTotal(String tipusHabitacio, ArrayList<String> serveisSeleccionats) {
         //TODO:
-        return 0;
+        float preuBase = preusHabitacions.get(tipusHabitacio);
+        for (String servei : serveisSeleccionats) {
+
+            preuBase += preusServeis.get(servei);
+        }
+        return preuBase * (1 + IVA);
     }
 
     /**
@@ -203,7 +218,13 @@ public class App {
      */
     public static int generarCodiReserva() {
         //TODO:
-        return 0;
+        int codi;
+        do {
+            codi = random.nextInt(900) + 100;
+        } 
+        while (reserves.containsKey(codi));
+
+        return codi;
     }
 
     /**
@@ -256,6 +277,25 @@ public class App {
      */
     public static void mostrarDadesReserva(int codi) {
        // TODO: Imprimir tota la informació d'una reserva
+        
+       if (!reserves.containsKey(codi)) {
+        System.out.println("Error: No existeix cap reserva amb el codi " + codi);
+        return;
+       }
+       ArrayList<String> dades = reserves.get(codi);
+
+       System.out.println("\n=== RESERVA " + codi + " ===");
+       System.out.println("Tipus: " + dades.get(0));
+        System.out.println("Preu: " + dades.get(1) + "€");
+
+        System.out.println("Altres dades:" );
+        for (int i = 2; i < dades.size(); i++) {
+            System.out.println(" - " + dades.get(i));
+        }
+       
+      
+
+
     }
 
     // --------- MÈTODES AUXILIARS (PER MILLORAR LEGIBILITAT) ---------
