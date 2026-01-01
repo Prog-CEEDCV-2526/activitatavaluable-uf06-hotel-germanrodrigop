@@ -137,6 +137,50 @@ public class App {
     public static void reservarHabitacio() {
         System.out.println("\n===== RESERVAR HABITACIÓ =====");
         //TODO:
+
+        // 1. Seleccionar tipo de habitación disponible
+    String tipus = seleccionarTipusHabitacioDisponible();
+    
+    // Si no hay habitaciones disponibles, salir
+    if (tipus == null) {
+        System.out.println("No hi ha habitacions disponibles del tipus seleccionat.");
+        return;
+    }
+    
+    // 2. Seleccionar servicios adicionales
+    ArrayList<String> serveis = seleccionarServeis();
+    
+    // 3. Calcular el precio total
+    float preuTotal = calcularPreuTotal(tipus, serveis);
+    
+    // 4. Generar código único de reserva
+    int codi = generarCodiReserva();
+    
+    // 5. Crear el ArrayList con los datos de la reserva
+    ArrayList<String> dadesReserva = new ArrayList<>();
+    dadesReserva.add(tipus);                      // Posición 0: tipo
+    dadesReserva.add(String.valueOf(preuTotal));  // Posición 1: precio
+    
+    // Añadir cada servicio (posiciones 2, 3, 4...)
+    for (String servei : serveis) {
+        dadesReserva.add(servei);
+    }
+    
+    // 6. Guardar la reserva en el HashMap
+    reserves.put(codi, dadesReserva);
+    
+    // 7. Actualizar disponibilidad (restar 1)
+    int disponibilitatActual = disponibilitatHabitacions.get(tipus);
+    disponibilitatHabitacions.put(tipus, disponibilitatActual - 1);
+    
+    // 8. Mostrar confirmación
+    System.out.println("\n✓ RESERVA CREADA AMB ÈXIT!");
+    System.out.println("Codi de reserva: " + codi);
+    System.out.println("Tipus: " + tipus);
+    System.out.println("Serveis: " + (serveis.isEmpty() ? "Cap" : serveis));
+    System.out.println("Preu total: " + preuTotal + "€");
+    System.out.println("Disponibilitat restant de " + tipus + ": " + 
+                       disponibilitatHabitacions.get(tipus));
         
     }
 
