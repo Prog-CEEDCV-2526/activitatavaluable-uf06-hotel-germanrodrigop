@@ -194,9 +194,62 @@ public class App {
      */
     public static ArrayList<String> seleccionarServeis() {
         //TODO:
+                ArrayList<String> serveisSeleccionats = new ArrayList<>();
 
-        return null;
-    }
+         System.out.println("\n=== SELECCIONAR SERVEIS ===");
+        System.out.println("1. Gimnàs");
+        System.out.println("2. Esmorzar");
+        System.out.println("3. Piscina");
+        System.out.println("4. Spa");
+        System.out.println("0. Acabar");
+
+          while (true) {
+        int opcio = llegirEnter("Servei (0 per acabar): ");
+            
+        if (opcio < 0 || opcio > 4) {
+            System.out.println("Error! Tria entre 0 i 4");
+            continue;
+        }
+
+         if (opcio == 0) {
+            break;
+        }
+
+        String servei = "";
+        switch (opcio) {
+            case 1:
+                servei = SERVEI_GIMNAS;
+                break;
+            case 2:
+                servei = SERVEI_ESMORZAR;
+                break;
+            case 3:
+                servei = SERVEI_PISCINA;
+                break;
+            case 4:
+                servei = SERVEI_SPA;
+                break;
+        }
+
+        if (!serveisSeleccionats.contains(servei)) {
+            serveisSeleccionats.add(servei);  // Añadir al ArrayList
+            System.out.println("Afegit: " + servei);
+        } 
+        
+        else {
+            System.out.println("Ja has seleccionat aquest servei!");
+            }
+
+        if (serveisSeleccionats.size() == 4) {
+            System.out.println("Màxim de serveis assolit (4)");
+            break;
+             }
+        }
+
+        return serveisSeleccionats; 
+
+        }
+
 
     /**
      * Calcula i retorna el cost total de la reserva, incloent l'habitació,
@@ -260,7 +313,11 @@ public class App {
     public static void obtindreReserva() {
         System.out.println("\n===== CONSULTAR RESERVA =====");
         // TODO: Mostrar dades d'una reserva concreta
- 
+    
+    int codi = llegirEnter("Introdueix el codi de reserva: ");
+    
+    mostrarDadesReserva(codi);
+
     }
 
     /**
@@ -292,7 +349,7 @@ public class App {
         for (int i = 2; i < dades.size(); i++) {
             System.out.println(" - " + dades.get(i));
         }
-       
+       System.out.println("====================\n");
       
 
 
